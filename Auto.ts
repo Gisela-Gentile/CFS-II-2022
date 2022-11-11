@@ -79,16 +79,24 @@ class RegistroAutomotor{
  public altaAuto(): void{
 
     let dominio:string = ReadlineSync.question("Ingrese el dominio del auto en MAYUSCULA y sin espacio: ");
+    let i:number=0
+    for ( i=0; i< this.listaDeAutos.length; i++) {
+        if ( this.listaDeAutos[i].getdominio() == dominio.toUpperCase()){
+            throw new Error("El dominio ya existe");
+        } }
+
     let marca:string = ReadlineSync.question("Ingrese la marca del auto: ");
     let modelo:string = ReadlineSync.question("Ingrese el modelo del auto: ");
     let motor:string = ReadlineSync.question("Ingrese el motor del auto: ");
     let chasis:string = ReadlineSync.question("Ingrese el chasis del auto: ");
-    
-    let nuevoAuto : Auto = new Auto(dominio.toUpperCase(), marca, modelo, motor, chasis);
+      
+      let nuevoAuto : Auto = new Auto(dominio.toUpperCase(), marca, modelo, motor, chasis);
     ​
         //inserto el elemento de tipo Auto en el arreglo recibido
         this.listaDeAutos.push(nuevoAuto);
- }
+           }
+   
+ 
         //funcion para "borrar" un auto
 ​
 public bajaAuto( posicion: number) : void {​
@@ -139,15 +147,23 @@ function cargarAuto(auto: string, arrayAuto: Array<Auto>) : void{
         arrayAuto.push(nuevoAuto);
     }
 const obtenerPosicion = (arregloAuto: Auto[]): number=>{
+    let esta: boolean=false
     let posicion: number=0
+    let ubicacion:number=0
     let dominio:string= ReadlineSync.question("Ingrese el dominio del auto en mayuscula y sin espacios: ");
     for (let i:number=0; i< arregloAuto.length; i++){
-        if ( arregloAuto[i].getdominio() == dominio.toUpperCase()){
-            posicion=i
-        }
-                   
-             }
-     return posicion
+
+        if ( arregloAuto[i].getdominio() === dominio.toUpperCase()){
+            esta= true;
+            ubicacion=i;
+        } 
+    }
+     if (esta== true){
+        posicion= ubicacion;
+     }else{
+        throw new Error ("El dominio no existe");}
+     
+     return posicion;
 }
 
 const consultarOtraOpcion= ():void =>{
@@ -183,28 +199,48 @@ const mostrarMenu=():void=>{
 
 switch (menu){
      case 1:
+        try{
         console.log("Dar de alta un auto nuevo");
         auto.altaAuto();
-        consultarOtraOpcion();
+        consultarOtraOpcion();}
+        catch(error){
+            console.log("Ocurrió un error: " + error.message);
+            consultarOtraOpcion();
+        }
         
         break;
         case 2:
+            try {
             console.log("Modicar datos");
             let posicion:number= obtenerPosicion(listaAutos);
             auto.actualizarAuto(posicion);
             consultarOtraOpcion();
+             } catch (error) {
+                console.log ("Ocurrió un error: " + error.message);
+                consultarOtraOpcion();
+            }
             break;
         case 3:
+            try{
             console.log("Dar de baja");
             let ubicacion:number= obtenerPosicion(listaAutos);
             auto.bajaAuto(ubicacion);
-            consultarOtraOpcion();
+            consultarOtraOpcion();}
+            catch(error){
+                console.log("Ocurrió un error: " + error.message);
+                consultarOtraOpcion();
+            }
             break;
          case 4:
+            try{
             console.log("consultar por un auto");
             let posicion1:number= obtenerPosicion(listaAutos);
             auto.mostrarUnAuto(posicion1);
-            consultarOtraOpcion();
+            consultarOtraOpcion();}
+            catch(error){
+                console.log("Ocurrió un error: " + error.message);
+                consultarOtraOpcion();
+            }
          case 5:
             console.log(listaAutos);
             consultarOtraOpcion();
