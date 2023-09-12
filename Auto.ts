@@ -1,6 +1,9 @@
 import * as fs from "fs";
 import * as ReadlineSync from 'readline-sync';
 ​
+//instalamos readline-sync -- npm install readline-sync
+//instalar npm install @types/node
+
 class Auto {
     private dominio:string;
     private marca: string;
@@ -32,7 +35,7 @@ class Auto {
     }
     }
 
-//instalar npm install @types/node
+
 // creamos un gestor que nos permite leer un archivo de texto
 ​
 class GestorDeArchivos {
@@ -105,7 +108,6 @@ public bajaAuto( posicion: number) : void {​
         }
        
     //funcion para modificar datos de un auto
-//instalamos readline-sync -- npm install readline-sync
 ​
 public actualizarAuto( posicion: number): void{
 
